@@ -32,66 +32,117 @@
     <link href="favicon.ico" type="image/x-icon" rel="icon" />
     <link href="favicon.ico" type="image/x-icon" rel="shortcut icon" />
 
+    <style>
+      .move-area {
+        height: 100vh;
+      }
+      .move-area-inner {
+        width: 70px;
+        top: 55px;
+        left: 50%;
+        margin-left: -29px;
+        transform: scale(0.65);
+    }
+      .eye {
+          position: relative;
+          display: inline-block;
+          border-radius: 50%;
+          height: 30px;
+          width: 30px;
+          background: #936e55;
+          box-shadow: inset 0 0 0 4px #342929;
+      }
+      .eye:first-child { left: -3px; }
+      .eye:last-child { left: 10px; }
+      .eye:after {
+          position: absolute;
+          bottom: 14px;
+          right: 8px;
+          width: 14px;
+          height: 14px;
+          background: #1e1717;
+          border-radius: 50%;
+          content: " ";
+      }
+    </style>
+
   </head>
   <body style="/* background-color: #ffe7dc; */">
-
-    <h1 class="my-3 text-center" style="opacity: 0.9;">
-      <img src="logo.png" alt="Sculprit" style="width: 120px;height: auto;">
-    </h1>
-    <div class="card mb-3 mx-auto" style="max-width: 340px;">
-      <div class="row no-gutters">
-        <div class="col-12">
-          <div class="card-body">
-            <h4 class="card-title text-center">Random Picker</h4>
-            <p class="card-text">This simple web app picks one random item from any list you input into the textarea below.</p>
-            <input id="inputResult" class="form-control text-center" title="Empty..." type="text" placeholder="Empty..." readonly="" style="font-size: 14pt;">
-
-            <form id="randompick">
-              <div class="form-group mt-4 text-center">
-                
-                <textarea class="form-control" rows="10" id="listInput" placeholder="Type or paste a list here..."></textarea>
+    <section class="move-area">
+      <h1 class="my-3 text-center" style="opacity: 0.9;min-height: 120px;">
+        <img src="logo.png" alt="Sculprit" style="width: 120px;height: auto;">
+      </h1>
+        <div class="move-area-inner position-absolute">
+          <div class="eye" style="transform: rotate(115.236deg);"></div>
+          <div class="eye" style="transform: rotate(115.236deg);"></div>
+        </div>
+      <div class="card mb-3 mx-auto" style="max-width: 340px;">
+        <div class="row no-gutters">
+          <div class="col-12">
+            <div class="card-body">
+              <h4 class="card-title text-center">The Picker</h4>
+              <p class="card-text">This Picker picks one random item from any list you input into the textarea below.</p>
+              <input id="inputResult" class="form-control text-center" title="Empty..." type="text" placeholder="Empty..." readonly="" style="font-size: 14pt;">
+                <form id="randompick">
+                  <div class="form-group mt-4 text-center">
+                    <textarea class="form-control" rows="10" id="listInput" placeholder="Type or paste a list here..."></textarea>
+                  </div>
+                  <button type="Submit" id="btnRun" class="btn btn-dark btn-block btn-lg" style="background-color: #543b36;">Run!</button>
+                </form>
+                <p class="card-text mt-2">
+                  <small class="text-muted">Last updated 2022-12-15 by</small>
+                  <a href="https://www.lionbytes.net" target="_blank" rel="noreferrer">
+                    <picture>
+                      <source srcset="https://ramz.info/src/images/lionbytes.webp" type="image/webp">
+                      <source srcset="https://ramz.info/src/images/lionbytes.png" type="image/png"> 
+                      <img src="https://ramz.info/src/images/lionbytes.png" alt="Developed by Lionbytes" title="Developed by Lionbytes" style="height: 20px;width: auto;margin: 2px -7px 0;image-rendering: -webkit-optimize-contrast;">
+                    </picture>
+                  </a>
+                </p>
               </div>
-              <button type="Submit" id="btnRun" class="btn btn-dark btn-block btn-lg" style="background-color: #543b36;">Run!</button>
-            </form>
-            <p class="card-text mt-2">
-              <small class="text-muted">Last updated 2022-12-15 by</small>
-              <a href="https://www.lionbytes.net" target="_blank" rel="noreferrer">
-                <picture>
-                  <source srcset="https://ramz.info/src/images/lionbytes.webp" type="image/webp">
-                  <source srcset="https://ramz.info/src/images/lionbytes.png" type="image/png"> 
-                  <img src="https://ramz.info/src/images/lionbytes.png" alt="Developed by Lionbytes" title="Developed by Lionbytes" style="height: 20px;width: auto;margin: 2px -7px 0;image-rendering: -webkit-optimize-contrast;">
-                </picture>
-              </a>
-            </p>
+            </div>
           </div>
         </div>
-      </div>
-    </div>
+      </section>
 
+      <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
 
-    <script>
-    const input = document.querySelector("#listInput");
-    const result = document.querySelector("#inputResult");
-    const randompick = document.querySelector("#randompick");
+      <script>
+      const input = document.querySelector("#listInput");
+      const result = document.querySelector("#inputResult");
+      const randompick = document.querySelector("#randompick");
 
-    randompick.addEventListener('submit', (event) => {
-      'use strict';
-      event.preventDefault();
+      randompick.addEventListener('submit', (event) => {
+        'use strict';
+        event.preventDefault();
+        
+        if (input.value && input.value !== "") {
+          const itemarray = input.value.split('\n');
+          const i = Math.floor( Math.random() * (itemarray.length) );
+          result.value = itemarray[i];
+          result.title = itemarray[i];
+        } else {
+          result.value = "";
+          result.title = "Empty...";
+        }
+      });
       
-      if (input.value && input.value !== "") {
-        const itemarray = input.value.split('\n');
-        const i = Math.floor( Math.random() * (itemarray.length) );
-        result.value = itemarray[i];
-        result.title = itemarray[i];
-      } else {
-        result.value = "";
-        result.title = "Empty...";
-      }
-    });
-    
-  </script>
-  
-
-
-</body>
+    </script>
+    <script>
+      $(".move-area").mousemove(function(event) {
+        var eye = $(".eye");
+        console.log('eye', eye)
+        var x = (eye.offset().left) + (eye.width() / 2);
+        var y = (eye.offset().top) + (eye.height() / 2);
+        var rad = Math.atan2(event.pageX - x, event.pageY - y);
+        var rot = (rad * (180 / Math.PI) * -1) + 180;
+        eye.css({
+          '-webkit-transform': 'rotate(' + rot + 'deg)',
+          '-moz-transform': 'rotate(' + rot + 'deg)',
+          '-ms-transform': 'rotate(' + rot + 'deg)',
+          'transform': 'rotate(' + rot + 'deg)'
+        });
+      });
+    </script>
+  </body>
 </html>
