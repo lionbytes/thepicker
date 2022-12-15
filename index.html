@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+    <title>Random Picker</title>
+
+     <link rel="apple-touch-icon" sizes="512x512" href="favicon.png" />
+
+    <meta name="msapplication-TileImage" content="favicon.png">
+    <meta name="msapplication-TileColor" content="#ffe7dc">
+    <meta name="theme-color" content="#ffe7dc">
+
+    <!-- Social Media Meta -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content="favicon.png">
+    <meta name="twitter:image:secure_url" content="favicon.png"/>
+
+    <meta property="og:image" content="favicon.png">
+    <meta property="og:image:secure_url" content="favicon.png">
+    <meta property="og:image:type" content="image/png">
+    <meta property="og:image:width" content="512">
+    <meta property="og:image:height" content="512">
+    
+    <link rel="icon" sizes="512x512" href="favicon.png" />
+
+    <link href="favicon.ico" type="image/x-icon" rel="icon" />
+    <link href="favicon.ico" type="image/x-icon" rel="shortcut icon" />
+
+  </head>
+  <body style="/* background-color: #ffe7dc; */">
+
+    <h1 class="my-3 text-center" style="opacity: 0.9;">
+      <img src="logo.png" alt="Sculprit" style="width: 120px;height: auto;">
+    </h1>
+    <div class="card mb-3 mx-auto" style="max-width: 340px;">
+      <div class="row no-gutters">
+        <div class="col-12">
+          <div class="card-body">
+            <h4 class="card-title text-center">Random Picker</h4>
+            <p class="card-text">This simple web app picks one random item from any list you input into the textarea below.</p>
+            <input id="inputResult" class="form-control text-center" title="Empty..." type="text" placeholder="Empty..." readonly="" style="font-size: 14pt;">
+
+            <form id="randompick">
+              <div class="form-group mt-4 text-center">
+                
+                <textarea class="form-control" rows="10" id="listInput" placeholder="Type or paste a list here..."></textarea>
+              </div>
+              <button type="Submit" id="btnRun" class="btn btn-dark btn-block btn-lg" style="background-color: #543b36;">Run!</button>
+            </form>
+            <p class="card-text mt-2">
+              <small class="text-muted">Last updated 2022-12-15 by</small>
+              <a href="https://www.lionbytes.net" target="_blank" rel="noreferrer">
+                <picture>
+                  <source srcset="https://ramz.info/src/images/lionbytes.webp" type="image/webp">
+                  <source srcset="https://ramz.info/src/images/lionbytes.png" type="image/png"> 
+                  <img src="https://ramz.info/src/images/lionbytes.png" alt="Developed by Lionbytes" title="Developed by Lionbytes" style="height: 20px;width: auto;margin: 2px -7px 0;image-rendering: -webkit-optimize-contrast;">
+                </picture>
+              </a>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <script>
+    const input = document.querySelector("#listInput");
+    const result = document.querySelector("#inputResult");
+    const randompick = document.querySelector("#randompick");
+
+    randompick.addEventListener('submit', (event) => {
+      'use strict';
+      event.preventDefault();
+      
+      if (input.value && input.value !== "") {
+        const itemarray = input.value.split('\n');
+        const i = Math.floor( Math.random() * (itemarray.length) );
+        result.value = itemarray[i];
+        result.title = itemarray[i];
+      } else {
+        result.value = "";
+        result.title = "Empty...";
+      }
+    });
+    
+  </script>
+  
+
+
+</body>
+</html>
