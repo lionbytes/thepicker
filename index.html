@@ -33,9 +33,9 @@
     <link href="favicon.ico" type="image/x-icon" rel="shortcut icon" />
 
     <style>
-      .move-area {
+      /*.move-area {
         height: 100vh;
-      }
+      }*/
       .move-area-inner {
         width: 70px;
         top: 55px;
@@ -68,12 +68,12 @@
     </style>
 
   </head>
-  <body style="/* background-color: #ffe7dc; */">
+  <body style="background: url(bg.png) repeat center center;">
     <section class="move-area">
       <h1 class="my-3 text-center" style="opacity: 0.9;min-height: 120px;">
         <img src="logo.png" alt="Sculprit" style="width: 120px;height: auto;">
       </h1>
-        <div class="move-area-inner position-absolute">
+        <div class="move-area-inner position-absolute d-none">
           <div class="eye" style="transform: rotate(115.236deg);"></div>
           <div class="eye" style="transform: rotate(115.236deg);"></div>
         </div>
@@ -86,17 +86,17 @@
               <input id="inputResult" class="form-control text-center" title="Empty..." type="text" placeholder="Empty..." readonly="" style="font-size: 14pt;">
                 <form id="randompick">
                   <div class="form-group mt-4 text-center">
-                    <textarea class="form-control" rows="10" id="listInput" placeholder="Type or paste a list here..."></textarea>
+                    <textarea class="form-control" rows="9" id="listInput" placeholder="Type or paste a list here..."></textarea>
                   </div>
                   <button type="Submit" id="btnRun" class="btn btn-dark btn-block btn-lg" style="background-color: #543b36;">Run!</button>
                 </form>
                 <p class="card-text mt-2">
-                  <small class="text-muted">Last updated 2022-12-15 by</small>
+                  <small class="text-muted">Developed by</small>
                   <a href="https://www.lionbytes.net" target="_blank" rel="noreferrer">
                     <picture>
                       <source srcset="https://ramz.info/src/images/lionbytes.webp" type="image/webp">
                       <source srcset="https://ramz.info/src/images/lionbytes.png" type="image/png"> 
-                      <img src="https://ramz.info/src/images/lionbytes.png" alt="Developed by Lionbytes" title="Developed by Lionbytes" style="height: 20px;width: auto;margin: 2px -7px 0;image-rendering: -webkit-optimize-contrast;">
+                      <img src="https://ramz.info/src/images/lionbytes.png" alt="Lionbytes" title="Lionbytes" style="height: 20px;width: auto;margin: 2px -7px 0;image-rendering: -webkit-optimize-contrast;">
                     </picture>
                   </a>
                 </p>
@@ -106,7 +106,7 @@
         </div>
       </section>
 
-      <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+      <!-- <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script> -->
 
       <script>
       const input = document.querySelector("#listInput");
@@ -120,8 +120,13 @@
         if (input.value && input.value !== "") {
           const itemarray = input.value.split('\n');
           const i = Math.floor( Math.random() * (itemarray.length) );
-          result.value = itemarray[i];
-          result.title = itemarray[i];
+
+          let filtered = itemarray.filter(function (el) {
+            return el != "";
+          });
+          result.value = filtered[i];
+          result.title = filtered[i];
+
         } else {
           result.value = "";
           result.title = "Empty...";
@@ -129,7 +134,7 @@
       });
       
     </script>
-    <script>
+    <!-- <script>
       $(".move-area").mousemove(function(event) {
         var eye = $(".eye");
         console.log('eye', eye)
@@ -144,6 +149,6 @@
           'transform': 'rotate(' + rot + 'deg)'
         });
       });
-    </script>
+    </script> -->
   </body>
 </html>
